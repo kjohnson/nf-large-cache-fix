@@ -21,6 +21,7 @@ final class NF_LargeCacheFix
     {
         if( ! function_exists( 'Ninja_Forms' ) ) return;
         foreach( Ninja_Forms()->form()->get_forms() as $form ){
+            if( ! get_option( 'nf_form_' . $form->get_id() . '_chunks', false ) ) continue;
             add_filter( 'pre_option_nf_form_' . $form->get_id(), array( $this, 'pre_option' ), 10, 1 );
             add_filter( 'pre_update_option_nf_form_' . $form->get_id(), array( $this, 'pre_update_option' ), 10, 2 );
         }
